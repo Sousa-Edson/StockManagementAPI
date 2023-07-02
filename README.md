@@ -4,6 +4,8 @@
 
 Esta é uma API de Controle de Estoque desenvolvida em Spring Boot.
 
+A StockManagementAPI é uma poderosa solução de gerenciamento de estoque, oferecendo recursos avançados para o controle de produtos, unidades de medida e movimentações, proporcionando eficiência e precisão no monitoramento e otimização dos níveis de estoque.
+
 ## Requisitos
 
 Certifique-se de ter as seguintes ferramentas instaladas em seu ambiente de desenvolvimento:

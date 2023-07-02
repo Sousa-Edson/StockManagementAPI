@@ -1,0 +1,9 @@
+/home/edson/Projetos/web/StockManagementAPI/src/main/java/com/edson/StockManagementAPI/services/ProductService.java
+/home/edson/Projetos/web/StockManagementAPI/src/main/java/com/edson/StockManagementAPI/models/Unit.java
+/home/edson/Projetos/web/StockManagementAPI/src/main/java/com/edson/StockManagementAPI/controllers/UnitController.java
+/home/edson/Projetos/web/StockManagementAPI/src/main/java/com/edson/StockManagementAPI/repositories/UnitRepository.java
+/home/edson/Projetos/web/StockManagementAPI/src/main/java/com/edson/StockManagementAPI/StockManagementApiApplication.java
+/home/edson/Projetos/web/StockManagementAPI/src/main/java/com/edson/StockManagementAPI/repositories/ProductRepository.java
+/home/edson/Projetos/web/StockManagementAPI/src/main/java/com/edson/StockManagementAPI/models/Product.java
+/home/edson/Projetos/web/StockManagementAPI/src/main/java/com/edson/StockManagementAPI/services/UnitService.java
+/home/edson/Projetos/web/StockManagementAPI/src/main/java/com/edson/StockManagementAPI/controllers/ProductController.java
