@@ -1,11 +1,17 @@
 package com.edson.StockManagementAPI.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.edson.StockManagementAPI.models.Product;
@@ -35,7 +41,6 @@ public class ProductService {
 
 	public Product createProduct(Product product) {
 		return productRepository.save(product);
-
 	}
 
 	public Product updateProduct(Long id, Product updatedProduct) {

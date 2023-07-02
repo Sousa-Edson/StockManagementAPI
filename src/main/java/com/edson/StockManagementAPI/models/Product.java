@@ -23,6 +23,7 @@ public class Product {
 	private String description;
 	private double value;
 	private String generalComments;
+	private boolean active;
 
 	// Construtores, getters e setters
 
@@ -76,6 +77,14 @@ public class Product {
 
 	public void setGeneralComments(String generalComments) {
 		this.generalComments = generalComments;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }
