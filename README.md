@@ -53,6 +53,26 @@ Exemplo de um objeto Produto:
 }
 ```
 
+
+- `GET /api/units`: Retorna todos os units cadastrados.
+- `GET /api/units/{id}`: Retorna um units específico pelo ID.
+- `POST /api/units`: Cria um novo units.
+- `PUT /api/units/{id}`: Atualiza um units existente pelo ID.
+- `DELETE /api/units/{id}`: Exclui um units pelo ID.
+
+## Formato de Dados
+
+Os dados são enviados e recebidos no formato JSON.
+
+Exemplo de um objeto Units:
+
+```json
+{
+  "id": 1,
+		"name": "Exemplar"
+}
+```
+
 ## Tratamento de Erros
 
 A API possui tratamento de erros e retornará respostas adequadas em caso de falhas. Certifique-se de verificar os códigos de status HTTP e as mensagens de erro retornadas.
