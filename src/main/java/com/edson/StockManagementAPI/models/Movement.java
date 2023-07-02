@@ -1,7 +1,7 @@
 package com.edson.StockManagementAPI.models;
 
+import com.edson.StockManagementAPI.enums.MovementType;
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,9 +9,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
-
-import com.edson.StockManagementAPI.enums.MovementType;
 
 @Entity
 @Table(name = "movements")
@@ -30,11 +31,15 @@ public class Movement {
     @Column(nullable = false)
     private int quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    // Outros atributos e relacionamentos
-    
-    // Construtores, getters e setters, métodos adicionais, etc.
+    @Column
+    private String complement;
 
+    public Movement() {
+    }
 
     public Long getId() {
         return id;
@@ -68,8 +73,25 @@ public class Movement {
         this.quantity = quantity;
     }
 
-  
-    
+    @PrePersist
+    public void prePersist() {
+        dateTime = LocalDateTime.now();
+    }
 
-    
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
 }
