@@ -30,7 +30,46 @@ public class Movement {
     @Column(nullable = false)
     private int quantity;
 
+
     // Outros atributos e relacionamentos
     
     // Construtores, getters e setters, métodos adicionais, etc.
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public MovementType getType() {
+        return type;
+    }
+
+    public void setType(MovementType type) {
+        this.type = type;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+  
+    
+
+    
 }
