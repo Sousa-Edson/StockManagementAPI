@@ -21,6 +21,7 @@ public class NCM {
     private String code;
 
     @NotBlank(message = "A descrição do NCM é obrigatória")
+    @Size(max = 255, message = "A descrição do NCM deve ter no máximo 255 caracteres")
     private String description;
 
     public NCM() {
