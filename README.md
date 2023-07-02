@@ -52,7 +52,9 @@ Exemplo de um objeto Produto:
   "unit": "un", 
 }
 ```
+## Endpoints
 
+A API possui os seguintes endpoints:
 
 - `GET /api/units`: Retorna todos os units cadastrados.
 - `GET /api/units/{id}`: Retorna um units específico pelo ID.
@@ -69,7 +71,7 @@ Exemplo de um objeto Units:
 ```json
 {
   "id": 1,
-		"name": "Exemplar"
+	"name": "Exemplar"
 }
 ```
 
