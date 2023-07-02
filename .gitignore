@@ -23,7 +23,7 @@
 hs_err_pid*
 replay_pid*
 
-# arquivos ignorados
+# arquivos ignorados 
 target/      # Ignora a pasta "target" e todo o seu conteúdo
 database.properties  # Ignora o arquivo "database.properties"
 logs/             # Ignora a pasta "logs" e todo o seu conteúdo
