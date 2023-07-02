@@ -28,6 +28,7 @@ Certifique-se de ter as seguintes ferramentas instaladas em seu ambiente de dese
 4. Acesse a API em `http://localhost:8080`.
 
 ## Endpoints
+### products
 
 A API possui os seguintes endpoints:
 
@@ -37,7 +38,7 @@ A API possui os seguintes endpoints:
 - `PUT /api/products/{id}`: Atualiza um produto existente pelo ID.
 - `DELETE /api/products/{id}`: Exclui um produto pelo ID.
 
-## Formato de Dados
+### Formato de Dados
 
 Os dados são enviados e recebidos no formato JSON.
 
@@ -52,7 +53,7 @@ Exemplo de um objeto Produto:
   "unit": "un", 
 }
 ```
-## Endpoints
+### units
 
 A API possui os seguintes endpoints:
 
@@ -62,7 +63,7 @@ A API possui os seguintes endpoints:
 - `PUT /api/units/{id}`: Atualiza um units existente pelo ID.
 - `DELETE /api/units/{id}`: Exclui um units pelo ID.
 
-## Formato de Dados
+### Formato de Dados
 
 Os dados são enviados e recebidos no formato JSON.
 
