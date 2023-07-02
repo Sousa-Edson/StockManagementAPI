@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.edson.StockManagementAPI.models.Product;
 import com.edson.StockManagementAPI.services.ProductService;
 import com.edson.StockManagementAPI.services.UnitService;
@@ -49,27 +50,27 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<?> createProduct(@Valid @RequestBody Product request) {
 
-        // if (!unitService.getUnitById(request.getUnit().getId()).isPresent()) {
-        // return ResponseEntity.status(400).body("A unidade especificada não existe.");
-        // } else {
+        if (!unitService.getUnitById(request.getUnit().getId()).isPresent()) {
+        return ResponseEntity.status(400).body("A unidade especificada não existe.");
+        } else {
         Product savedProduct = productService.createProduct(request);
         return ResponseEntity.status(201).body(savedProduct);
-        // }
+        }
 
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody Product updatedProduct) {
-        // if (!unitService.getUnitById(updatedProduct.getUnit().getId()).isPresent()) {
-        // return ResponseEntity.status(400).body("A unidade especificada não existe.");
-        // } else {
+        if (!unitService.getUnitById(updatedProduct.getUnit().getId()).isPresent()) {
+        return ResponseEntity.status(400).body("A unidade especificada não existe.");
+        } else {
         Product updated = productService.updateProduct(id, updatedProduct);
         if (updated != null) {
             return new ResponseEntity<>(updated, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        // }
+        }
     }
 
     @DeleteMapping("/{id}")

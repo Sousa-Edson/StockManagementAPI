@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Product {
@@ -16,7 +17,7 @@ public class Product {
 
 	@ManyToOne
 	@JoinColumn(name = "unit_id")
-	// @NotNull(message = "Unidade é obrigatório")
+	@NotNull(message = "Unidade é obrigatório")
 	private Unit unit;
 	@NotBlank(message = "O nome do produto é obrigatório")
 	private String description;

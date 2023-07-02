@@ -1,7 +1,5 @@
 package com.edson.StockManagementAPI.models;
 
-import java.util.UUID;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,10 +12,10 @@ public class Unit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	// private UUID id;
 	@NotNull(message = "Unidade é obrigatório")
 	@NotBlank(message = "O nome da unidade é obrigatório")
 	private String name;
+	private boolean active;
 
 	public Unit() {
 		super();
@@ -43,6 +41,15 @@ public class Unit {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+	
  
 
 }
