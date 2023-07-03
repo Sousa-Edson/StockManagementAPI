@@ -1,5 +1,6 @@
 package com.edson.StockManagementAPI.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,28 +51,43 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@Valid @RequestBody Product request) {
-
+    public ResponseEntity<?> createProduct(@Valid @RequestBody Product request, BindingResult bindingResult) {
+        // Verificar se há erros de validação
+        if (bindingResult.hasErrors()) {
+            List<String> errors = new ArrayList<>();
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errors.add(error.getField() + ": " + error.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(errors);
+        }
         if (!unitService.getUnitById(request.getUnit().getId()).isPresent()) {
-        return ResponseEntity.status(400).body("A unidade especificada não existe.");
+            return ResponseEntity.status(400).body("A unidade especificada não existe.");
         } else {
-        Product savedProduct = productService.createProduct(request);
-        return ResponseEntity.status(201).body(savedProduct);
+            Product savedProduct = productService.createProduct(request);
+            return ResponseEntity.status(201).body(savedProduct);
         }
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody Product updatedProduct) {
-        if (!unitService.getUnitById(updatedProduct.getUnit().getId()).isPresent()) {
-        return ResponseEntity.status(400).body("A unidade especificada não existe.");
-        } else {
-        Product updated = productService.updateProduct(id, updatedProduct);
-        if (updated != null) {
-            return new ResponseEntity<>(updated, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id,@Valid  @RequestBody Product updatedProduct, BindingResult bindingResult) {
+        // Verificar se há erros de validação
+        if (bindingResult.hasErrors()) {
+            List<String> errors = new ArrayList<>();
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errors.add(error.getField() + ": " + error.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(errors);
         }
+        if (!unitService.getUnitById(updatedProduct.getUnit().getId()).isPresent()) {
+            return ResponseEntity.status(400).body("A unidade especificada não existe.");
+        } else {
+            Product updated = productService.updateProduct(id, updatedProduct);
+            if (updated != null) {
+                return new ResponseEntity<>(updated, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
     }
 

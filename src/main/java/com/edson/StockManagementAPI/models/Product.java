@@ -8,6 +8,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 public class Product {
@@ -21,11 +25,12 @@ public class Product {
 	private Unit unit;
 	@NotBlank(message = "O nome do produto é obrigatório")
 	private String description;
-	private double value;
+	@NotNull(message = "O valor é obrigatório")
+	@PositiveOrZero(message = "O valor deve ser positivo")
+	@JsonInclude(Include.NON_NULL)
+	private Double value;
 	private String generalComments;
 	private boolean active;
-
-	// Construtores, getters e setters
 
 	public Product() {
 	}

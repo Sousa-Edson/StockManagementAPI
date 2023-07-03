@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Unit {
@@ -14,7 +15,9 @@ public class Unit {
 	private Long id;
 	@NotNull(message = "Unidade é obrigatório")
 	@NotBlank(message = "O nome da unidade é obrigatório")
+    @Size(max = 255, message = "O nome da unidade deve ter no máximo 255 caracteres")
 	private String name;
+	@NotNull(message = "Active é obrigatório")
 	private boolean active;
 
 	public Unit() {

@@ -1,13 +1,15 @@
 package com.edson.StockManagementAPI.controllers;
 
-import com.edson.StockManagementAPI.models.Movement;
-import com.edson.StockManagementAPI.models.Product;
-import com.edson.StockManagementAPI.services.MovementService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.edson.StockManagementAPI.models.Movement;
+import com.edson.StockManagementAPI.models.Product;
+import com.edson.StockManagementAPI.services.MovementService;
 
 @RestController
 @RequestMapping("/api/movements")
@@ -28,9 +34,22 @@ public class MovementController {
     }
 
     @PostMapping
-    public ResponseEntity<Movement> createMovement(@RequestBody Movement movement) {
+    public ResponseEntity<?> createMovement(@Valid @RequestBody Movement movement, BindingResult bindingResult) {
+        // Verificar se há erros de validação
+        if (bindingResult.hasErrors()) {
+            List<String> errors = new ArrayList<>();
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errors.add(error.getField() + ": " + error.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(errors);
+        }
         Movement savedMovement = movementService.saveMovement(movement);
-        return ResponseEntity.ok(savedMovement);
+
+        Product product = movement.getProduct();
+        product.setValue(0);
+        movement.setProduct(product);
+
+        return ResponseEntity.status(201).body(savedMovement);
     }
 
     @GetMapping
@@ -53,8 +72,8 @@ public class MovementController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Movement> updateMovement(@PathVariable("id") Long id, @RequestBody Movement movement) {
-         Movement updated = movementService.updateMovement(id, movement);
-          if (updated != null) {
+        Movement updated = movementService.updateMovement(id, movement);
+        if (updated != null) {
             return new ResponseEntity<>(updated, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
