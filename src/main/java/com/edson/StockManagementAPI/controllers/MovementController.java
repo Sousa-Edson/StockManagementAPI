@@ -22,15 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edson.StockManagementAPI.models.Movement;
 import com.edson.StockManagementAPI.models.Product;
 import com.edson.StockManagementAPI.services.MovementService;
+import com.edson.StockManagementAPI.services.ProductService;
 
 @RestController
 @RequestMapping("/api/movements")
 public class MovementController {
 
     private final MovementService movementService;
+    private final ProductService productService;
 
-    public MovementController(MovementService movementService) {
+    public MovementController(MovementService movementService, ProductService productService) {
         this.movementService = movementService;
+        this.productService = productService;
     }
 
     @PostMapping
@@ -43,6 +46,10 @@ public class MovementController {
             }
             return ResponseEntity.badRequest().body(errors);
         }
+        if (!productService.getProductById(movement.getProduct().getId()).isPresent()) {
+            return ResponseEntity.status(400).body("O produto especificado não existe.");
+        }
+
         Movement savedMovement = movementService.saveMovement(movement);
 
         Product product = movement.getProduct();
@@ -71,7 +78,19 @@ public class MovementController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Movement> updateMovement(@PathVariable("id") Long id, @RequestBody Movement movement) {
+    public ResponseEntity<?> updateMovement(@PathVariable("id") Long id, @Valid @RequestBody Movement movement,
+            BindingResult bindingResult) {
+        // Verificar se há erros de validação
+        if (bindingResult.hasErrors()) {
+            List<String> errors = new ArrayList<>();
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errors.add(error.getField() + ": " + error.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(errors);
+        }
+        if (!productService.getProductById(movement.getProduct().getId()).isPresent()) {
+            return ResponseEntity.status(400).body("O produto especificado não existe.");
+        }
         Movement updated = movementService.updateMovement(id, movement);
         if (updated != null) {
             return new ResponseEntity<>(updated, HttpStatus.OK);

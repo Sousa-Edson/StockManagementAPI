@@ -70,7 +70,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id,@Valid  @RequestBody Product updatedProduct, BindingResult bindingResult) {
+    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @Valid @RequestBody Product updatedProduct,
+            BindingResult bindingResult) {
         // Verificar se há erros de validação
         if (bindingResult.hasErrors()) {
             List<String> errors = new ArrayList<>();
