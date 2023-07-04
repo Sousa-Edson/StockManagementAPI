@@ -33,6 +33,7 @@ public class Product {
 	private boolean active;
 	@ManyToOne
 	@JoinColumn(name = "ncm_id")
+	@NotNull(message = "Ncm é obrigatório")
 	private NCM ncm;
 
 	public Product() {

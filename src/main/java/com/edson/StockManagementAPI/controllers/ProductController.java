@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edson.StockManagementAPI.models.Product;
+import com.edson.StockManagementAPI.services.NCMService;
 import com.edson.StockManagementAPI.services.ProductService;
 import com.edson.StockManagementAPI.services.UnitService;
 
@@ -30,11 +31,13 @@ public class ProductController {
 
     private final ProductService productService;
     private final UnitService unitService;
+    private final NCMService ncmService;
 
     @Autowired
-    public ProductController(ProductService productService, UnitService unitService) {
+    public ProductController(ProductService productService, UnitService unitService, NCMService ncmService) {
         this.productService = productService;
         this.unitService = unitService;
+        this.ncmService = ncmService;
     }
 
     @GetMapping
@@ -82,14 +85,17 @@ public class ProductController {
         }
         if (!unitService.getUnitById(updatedProduct.getUnit().getId()).isPresent()) {
             return ResponseEntity.status(400).body("A unidade especificada não existe.");
-        } else {
-            Product updated = productService.updateProduct(id, updatedProduct);
-            if (updated != null) {
-                return new ResponseEntity<>(updated, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
         }
+        if (!ncmService.getNCMById(updatedProduct.getNcm().getId()).isPresent()) {
+            return ResponseEntity.status(400).body("O ncm especificado não existe.");
+        }
+        Product updated = productService.updateProduct(id, updatedProduct);
+        if (updated != null) {
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @DeleteMapping("/{id}")
