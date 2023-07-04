@@ -31,6 +31,9 @@ public class Product {
 	private Double value;
 	private String generalComments;
 	private boolean active;
+	@ManyToOne
+	@JoinColumn(name = "ncm_id")
+	private NCM ncm;
 
 	public Product() {
 	}
@@ -90,6 +93,18 @@ public class Product {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public void setValue(Double value) {
+		this.value = value;
+	}
+
+	public NCM getNcm() {
+		return ncm;
+	}
+
+	public void setNcm(NCM ncm) {
+		this.ncm = ncm;
 	}
 
 }
