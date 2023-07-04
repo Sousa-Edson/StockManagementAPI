@@ -8,4 +8,6 @@ import com.edson.StockManagementAPI.models.NCM;
 @Repository
 public interface NCMRepository extends JpaRepository<NCM, Long> {
 
+    boolean existsByCode(String code);
+
 }

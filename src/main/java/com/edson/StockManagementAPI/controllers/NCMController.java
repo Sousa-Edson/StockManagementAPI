@@ -61,6 +61,9 @@ public class NCMController {
             }
             return ResponseEntity.badRequest().body(errors);
         }
+        if (ncmService.existsByCode(ncm.getCode())) {
+            return ResponseEntity.status(400).body("O código do NCM já existe: " + ncm.getCode());
+        }
         // if (!ncm.getCode().matches("\\d{8}")) {
         // return ResponseEntity.badRequest().body("O campo 'codigo' deve conter
         // exatamente 8 dígitos.");
@@ -69,6 +72,7 @@ public class NCMController {
         // return ResponseEntity.badRequest().body("O campo 'descrição' não pode ser
         // vazio.");
         // }
+
         NCM create = ncmService.createNCM(ncm);
         if (create != null) {
             return ResponseEntity.status(201).body(create);

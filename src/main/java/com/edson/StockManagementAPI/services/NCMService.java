@@ -52,4 +52,12 @@ public class NCMService {
             return false;
         }
     }
+
+    public boolean existsByCode(String code) {
+        if (ncmRepository.existsByCode(code)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

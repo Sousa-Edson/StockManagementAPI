@@ -1,5 +1,6 @@
 package com.edson.StockManagementAPI.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +19,7 @@ public class NCM {
     @NotBlank(message = "O código do NCM é obrigatório")
     @Size(min = 8, max = 8, message = "O código do NCM deve ter 8 dígitos")
     @Digits(integer = 8, fraction = 0, message = "O código do NCM deve conter apenas números")
+    @Column(unique = true)
     private String code;
 
     @NotBlank(message = "A descrição do NCM é obrigatória")
